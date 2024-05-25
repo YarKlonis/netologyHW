@@ -16,10 +16,6 @@ void changeAccountBalance(bankAccount(& p))
 
 int main() {
 
-    int userAccountNumber;
-    std::string userName;
-    double userAccountBalance;
-
     bankAccount person;
 
     std::cout << "Input account number: ";
