@@ -64,6 +64,7 @@ int main() {
     for (int i = 0; i < amountOfAddresses; i++){
         delete arr[i];
     }
+    delete[] arr;
 
     readFromFile.close();
     writeToFile.close();
