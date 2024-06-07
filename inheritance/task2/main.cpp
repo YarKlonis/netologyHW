@@ -1,22 +1,28 @@
 #include <iostream>
 #include <string>
 
-class Figure {
+class Figure{
 protected:
+    int numberOfSides = 0;
     std::string name = "Figure";
-    int a = 10;
-    int b = 20;
-    int c = 30;
-    int d = 40;
-    int A = 50;
-    int B = 60;
-    int C = 70;
-    int D = 80;
+
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    int d = 0;
+    int A = 0;
+    int B = 0;
+    int C = 0;
+    int D = 0;
 
 public:
+    int getNumberOfSides(){
+        return numberOfSides;
+    }
     std::string getName(){
         return name;
     }
+
     int getSide_a (){
         return a;
     }
@@ -42,137 +48,132 @@ public:
         return D;
     }
 
-
-
-    virtual void printInfo(){}
+    virtual void printSides(){}
+    virtual void printAngles(){}
 };
 
-class Triangle : public Figure {
+class Triangle : public Figure{
 public:
-    Triangle() {
+    Triangle( int a, int b, int c, int A, int B, int C) {
         name = "Triangle";
-
+        numberOfSides = 3;
+        this->a = a;
+        this->b = b;
+        this->c = c;
+        this->A = A;
+        this->B = B;
+        this->C = C;
     }
-    void printInfo() override{
-        std::cout << getName() << std::endl;
+    void printSides ()override{
         std::cout << "Sides: a = " << getSide_a() << ", b = " << getSide_b()<< ", c = " << getSide_c()<<std::endl;
-        std::cout << "Angles: A = " << getAngle_A() << ", B = " << getAngle_B()<< ", c = " << getAngle_C()<<std::endl;
-        std::cout << std::endl;
+    }
+    void printAngles()override{
+        std::cout << "Angles: A = " << getAngle_A() << ", B = " << getAngle_B()<< ", C = " << getAngle_C()<<std::endl;
     }
 };
 
 class RightTriangle : public Triangle {
 public:
-    RightTriangle(){
+    RightTriangle(int a, int b, int c, int A, int B) : Triangle(a, b, c, A, B, 90) {
         name = "Right Triangle";
-        C = 90;
     }
 };
 
 class IsoscelesTriangle : public Triangle {
 public:
-    IsoscelesTriangle(){
+    IsoscelesTriangle(int a, int b, int A, int B) : Triangle(a, b, a, A, B,A){
         name = "Isosceles Triangle";
-        a = c;
-        A = C;
     }
 };
 
 class EquilateralTriangle : public Triangle {
 public:
-    EquilateralTriangle(){
+    EquilateralTriangle(int a, int A) : Triangle(a, a, a, A, A, A){
         name = "Equilateral Triangle";
-        a = b = c;
-        A = B = C = 60;
     }
 };
 
 class Quadrangle : public Figure {
 public:
-    Quadrangle() {
+    Quadrangle(int a, int b, int c, int d, int A, int B, int C, int D) {
         name = "Quadrangle";
+        this -> a = a;
+        this -> b = b;
+        this -> c = c;
+        this -> d = d;
+        this -> A = A;
+        this -> B = B;
+        this -> C = C;
+        this -> D = D;
     }
-        void printInfo() override {
-                std::cout << getName()<< std::endl;
-                std::cout << "Sides: a = " << getSide_a() << ", b = " << getSide_b()<< ", c = " << getSide_c() << ", d = " << getSide_d()<<std::endl;
-                std::cout << "Angles: A = " << getAngle_A() << ", B = " << getAngle_B()<< ", c = " << getAngle_C() <<", c = " << getAngle_D()<<std::endl;
-                std::cout << std::endl;
-        }
-    };
+
+    void printSides() override{
+        std::cout << "Sides: a = " << getSide_a() << ", b = " << getSide_b()<< ", c = " << getSide_c() << ", d = " << getSide_d()<<std::endl;
+    }
+
+    void printAngles() override {
+        std::cout << "Angles: A = " << getAngle_A() << ", B = " << getAngle_B()<< ", C = " << getAngle_C() <<", D = " << getAngle_D()<<std::endl;
+    }
+};
 
 class Parallelogram : public Quadrangle{
 public:
-    Parallelogram(){
+    Parallelogram(int a ,int b, int A, int B): Quadrangle(a, b, a ,b, A, B, A, B) {
         name = "Parallelogram";
-        a = c;
-        b = d;
-        A = C;
-        B = D;
     }
 
 };
 
 class Rectangle : public Parallelogram {
 public:
-    Rectangle(){
+    Rectangle(int a, int b) : Parallelogram(a, b, 90,90){
         name = "Rectangle";
-        A = B = C = D = 90;
     }
 };
 
 class Square :  public Rectangle {
 public:
-    Square(){
+    Square(int a): Rectangle(a, a) {
         name = "Square";
-        a = b = c = d;
     }
 };
 
-class Rhomb : public Square {
+class Diamond : public Parallelogram{
 public:
-    Rhomb(){
+    Diamond(int a, int A, int B) : Parallelogram(a,a,A,B){
         name = "Rhomb";
-        A = C;
-        B = D;
     }
 };
 
-
+void printInfo(Figure *figure){
+    std::cout << figure->getName() << std::endl;
+    figure->printSides();
+    figure->printAngles();
+    std::cout<<std::endl;
+}
 
 int main() {
-    Triangle triangle;
-    Figure* par_Triangle = &triangle;
-    par_Triangle ->printInfo();
+    Figure figure;
+    Triangle triangle(10,20,30,40,50,60);
+    RightTriangle rightTriangle(10,20,30,40,50);
+    IsoscelesTriangle isoscelesTriangle(10,20,30,40);
+    EquilateralTriangle equilateralTriangle(10,20);
+    Quadrangle quadrangle(10,20,30,40,50,60,70,80);
+    Parallelogram parallelogram(10,20,30,40);
+    Rectangle rectangle (10,20);
+    Square square(10);
+    Diamond diamond(10,20,30);
 
-    RightTriangle rightTriangle;
-    Figure* par_rightTriangle = &rightTriangle;
-    par_rightTriangle->printInfo();
+    std::cout << "Number of sides: " << std::endl;
+    printInfo(&figure);
+    printInfo(&triangle);
+    printInfo(&rightTriangle);
+    printInfo(&isoscelesTriangle);
+    printInfo(&equilateralTriangle);
 
-    IsoscelesTriangle isoscelesTriangle;
-    Figure* par_isosceelsTriangle = &isoscelesTriangle;
-    par_isosceelsTriangle-> printInfo();
-
-    EquilateralTriangle equilateralTriangle;
-    Figure* par_equilateralTriangle = &equilateralTriangle;
-    par_equilateralTriangle-> printInfo();
-
-    Quadrangle quadrangle;
-    Figure* par_quadrangle = &quadrangle;
-    par_quadrangle ->printInfo();
-
-    Rectangle rectangle;
-    Figure* par_rectangle = &rectangle;
-    par_rectangle -> printInfo();
-
-    Square square;
-    Figure* par_square = &square;
-    par_square -> printInfo();
-
-    Parallelogram parallelogram;
-    Figure* par_parallelogram = &parallelogram;
-    par_parallelogram ->printInfo();
-
-    Rhomb rhomb;
-    Figure* par_rhomb = &rhomb;
-    par_rhomb ->printInfo();
+    printInfo(&quadrangle);
+    printInfo(&parallelogram);
+    printInfo(&rectangle);
+    printInfo(&square);
+    printInfo(&diamond);
 }
