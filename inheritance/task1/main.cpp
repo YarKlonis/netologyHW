@@ -29,6 +29,9 @@ public:
         numberOfSides = 4;
     }
 };
+void printInfo(Figure *figure){
+    std::cout << figure->getName() <<  ": " << figure->getNumberOfSides() << std::endl;
+}
 
 int main() {
     Figure figure;
@@ -36,7 +39,7 @@ int main() {
     Quadrangle quadrangle;
 
     std::cout << "Number of sides: " << std::endl;
-    std::cout << figure.getName() << ": " << figure.getNumberOfSides()<< std::endl;
-    std::cout << triangle.getName() << ": " << triangle.getNumberOfSides()<< std::endl;
-    std::cout << quadrangle.getName() << ": " << quadrangle.getNumberOfSides()<< std::endl;
+    printInfo(&figure);
+    printInfo(&triangle);
+    printInfo(&quadrangle);
 }
