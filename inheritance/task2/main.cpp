@@ -6,14 +6,6 @@ protected:
     int numberOfSides = 0;
     std::string name = "Figure";
 
-    int a = 0;
-    int b = 0;
-    int c = 0;
-    int d = 0;
-    int A = 0;
-    int B = 0;
-    int C = 0;
-    int D = 0;
 
 public:
     int getNumberOfSides(){
@@ -23,6 +15,30 @@ public:
         return name;
     }
 
+    virtual void printSides(){}
+    virtual void printAngles(){}
+};
+
+class Triangle : public Figure{
+protected:
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    int A = 0;
+    int B = 0;
+    int C = 0;
+public:
+    Triangle( int a, int b, int c, int A, int B, int C) {
+        name = "Triangle";
+        numberOfSides = 3;
+        this-> a = a;
+        this-> b = b;
+        this-> c = c;
+
+        this-> A = A;
+        this-> B = B;
+        this-> C = C;
+    }
     int getSide_a (){
         return a;
     }
@@ -31,9 +47,6 @@ public:
     }
     int getSide_c (){
         return c;
-    }
-    int getSide_d (){
-        return d;
     }
     int getAngle_A (){
         return A;
@@ -44,26 +57,7 @@ public:
     int getAngle_C (){
         return C;
     }
-    int getAngle_D (){
-        return D;
-    }
 
-    virtual void printSides(){}
-    virtual void printAngles(){}
-};
-
-class Triangle : public Figure{
-public:
-    Triangle( int a, int b, int c, int A, int B, int C) {
-        name = "Triangle";
-        numberOfSides = 3;
-        this->a = a;
-        this->b = b;
-        this->c = c;
-        this->A = A;
-        this->B = B;
-        this->C = C;
-    }
     void printSides ()override{
         std::cout << "Sides: a = " << getSide_a() << ", b = " << getSide_b()<< ", c = " << getSide_c()<<std::endl;
     }
@@ -94,17 +88,53 @@ public:
 };
 
 class Quadrangle : public Figure {
+protected:
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    int d = 0;
+    int A = 0;
+    int B = 0;
+    int C = 0;
+    int D = 0;
+
 public:
     Quadrangle(int a, int b, int c, int d, int A, int B, int C, int D) {
         name = "Quadrangle";
-        this -> a = a;
-        this -> b = b;
-        this -> c = c;
-        this -> d = d;
-        this -> A = A;
-        this -> B = B;
-        this -> C = C;
-        this -> D = D;
+
+        this-> a = a;
+        this-> b = b;
+        this-> c = c;
+        this-> d = d;
+
+        this-> A = A;
+        this-> B = B;
+        this-> C = C;
+        this-> D = D;
+    }
+    int getSide_a (){
+        return a;
+    }
+    int getSide_b (){
+        return b;
+    }
+    int getSide_c (){
+        return c;
+    }
+    int getSide_d (){
+        return d;
+    }
+    int getAngle_A (){
+        return A;
+    }
+    int getAngle_B (){
+        return B;
+    }
+    int getAngle_C (){
+        return C;
+    }
+    int getAngle_D (){
+        return D;
     }
 
     void printSides() override{
@@ -153,7 +183,7 @@ void printInfo(Figure *figure){
 }
 
 int main() {
-    Figure figure;
+
     Triangle triangle(10,20,30,40,50,60);
     RightTriangle rightTriangle(10,20,30,40,50);
     IsoscelesTriangle isoscelesTriangle(10,20,30,40);
@@ -164,8 +194,7 @@ int main() {
     Square square(10);
     Diamond diamond(10,20,30);
 
-    std::cout << "Number of sides: " << std::endl;
-    printInfo(&figure);
+
     printInfo(&triangle);
     printInfo(&rightTriangle);
     printInfo(&isoscelesTriangle);
